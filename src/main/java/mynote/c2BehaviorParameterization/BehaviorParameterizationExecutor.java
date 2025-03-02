@@ -41,6 +41,11 @@ public class BehaviorParameterizationExecutor {
 
         System.out.println("size는 2");
         System.out.println("greenApplesLambda.size() = " + greenApplesLambda.size());
+
+        List<Apple> filterGreenApple = Predicate.filter(inventory, (Apple apple) -> Color.RED.equals(apple.getColor()));
+        System.out.println("size는 2");
+        System.out.println("filterGreenApple.size() = " + filterGreenApple.size());
+        
     }
 
     public static List<Apple> filterApples(List<Apple> inventory, ApplePredicate p){
