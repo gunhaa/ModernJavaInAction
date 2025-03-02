@@ -1,18 +1,19 @@
 package mynote.c2BehaviorParameterization;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class BehaviorParameterizationExecutor {
     public static void main(String[] args) {
 
-        int param1= 160;
+//        int param1= 160;
         Color param2= Color.RED;
         Color param3= Color.GREEN;
 
-        Apple apple1 = new Apple(param1, param2);
-        Apple apple2 = new Apple(param1, param2);
-        Apple apple3 = new Apple(param1, param3);
+        Apple apple1 = new Apple("apple1", 160, param2);
+        Apple apple2 = new Apple("apple2", 159, param2);
+        Apple apple3 = new Apple("apple3", 158, param3);
         ApplePredicate p = new AppleRedAndHeavyPredicate();
 
         List<Apple> inventory = new ArrayList<>();
@@ -45,7 +46,17 @@ public class BehaviorParameterizationExecutor {
         List<Apple> filterGreenApple = Predicate.filter(inventory, (Apple apple) -> Color.RED.equals(apple.getColor()));
         System.out.println("size는 2");
         System.out.println("filterGreenApple.size() = " + filterGreenApple.size());
-        
+
+        inventory.sort(new Comparator<Apple>() {
+            @Override
+            public int compare(Apple o1, Apple o2) {
+                return o1.getWeight().compareTo(o2.getWeight());
+            }
+        });
+        System.out.println("inventory.get(0) = " + inventory.get(0));
+
+        inventory.sort((Apple a1, Apple a2) -> a2.getWeight().compareTo(a1.getWeight()));
+        System.out.println("lambdaInventory.get(0) = " + inventory.get(0));
     }
 
     public static List<Apple> filterApples(List<Apple> inventory, ApplePredicate p){
